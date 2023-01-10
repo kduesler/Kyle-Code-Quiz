@@ -74,7 +74,7 @@ function startQuiz() {
       clearInterval(quizTimer);
       endQuiz();
     } else {
-      timerEl.innerHTML = timeleft + " seconds remaining";
+      timerEl.innerHTML = timeleft;
     }
     timeleft -= 1;
   }, 1000);
@@ -130,7 +130,8 @@ function endQuiz() {
     finalScoreEl.textContent = 0;
   } else {
     finalScoreEl.textContent = timeleft;
-  }
+  };
+  currentQuestionIndex = 0;
 }
 
 const scoresForm = document.getElementById("scores-form");
@@ -143,27 +144,28 @@ let scoresStorage = localStorage.getItem("scores")
     ? JSON.parse(localStorage.getItem("scores"))
     : [];
 
-    scoresForm.addEventListener("submit", (e) => {
-        e.preventDefault();
+    scoresForm.addEventListener("submit", function(event)  {
+        event.preventDefault();
         scoresStorage.push(initialsInput.value.concat(' ' + timeleft) );
         localStorage.setItem("scores", JSON.stringify(scoresStorage));
         listBuilder(initialsInput.value.concat(' ' + timeleft));
         initialsInput.value = "";
     })
 
-    const listBuilder = (text) => {
+    const listBuilder = function(text) {
         const score = document.createElement("li");
         score.innerHTML = text;
         scores.appendChild(score);
     }
 
-    scoresStorage.forEach((score) => {
+    scoresStorage.forEach(function(score) {
         listBuilder(score);
     })
     ;
 
     function startQuizAgain() {
       //hide start screen//
+      timeleft = 100;
       startScreenEl.classList.add("hide");
       questionsEl.classList.remove("hide");
       endScreenEl.classList.add("hide");
