@@ -145,9 +145,9 @@ let scoresStorage = localStorage.getItem("scores")
 
     scoresForm.addEventListener("submit", (e) => {
         e.preventDefault();
-        scoresStorage.push(initialsInput.value + timeleft);
+        scoresStorage.push(initialsInput.value.concat(' ' + timeleft) );
         localStorage.setItem("scores", JSON.stringify(scoresStorage));
-        listBuilder(initialsInput.value);
+        listBuilder(initialsInput.value.concat(' ' + timeleft));
         initialsInput.value = "";
     })
 
@@ -157,51 +157,38 @@ let scoresStorage = localStorage.getItem("scores")
         scores.appendChild(score);
     }
 
-    const getScores = JSON.parse(localStorage.getItem("scores"));
-    getScores.forEach((score) => {
+    scoresStorage.forEach((score) => {
         listBuilder(score);
     })
     ;
 
+    function startQuizAgain() {
+      //hide start screen//
+      startScreenEl.classList.add("hide");
+      questionsEl.classList.remove("hide");
+      endScreenEl.classList.add("hide");
+      
+      //timer code//
+      quizTimer = setInterval(function () {
+        if (timeleft <= 0) {
+          timerEl.innerHTML = "Finished";
+          timeleft = 0;
+          clearInterval(quizTimer);
+          endQuiz();
+        } else {
+          timerEl.innerHTML = timeleft + " seconds remaining";
+        }
+        timeleft -= 1;
+      }, 1000);
+      
+      //call questions appear function//
+      showQuestion();
+    }
 
-
-
-//let highScores = 
-// function test(){
-// let initials = document.getElementById("initials").value
-// alert(initials);}
-
-
-// //Add score and initials to high score storage//
-// let highScores = [];
-// // let submitScoreButton = document.querySelector("#submit")
-
-// let storeHighScore=localStorage.getItem("High Scores")
-// // let initialsEl = document.getElementById("initials").value;
-
-// function addNewScore() {
-//   let initials = initialsEl;
-//   let newScore = {
-//     intials: initials,
-//     score: finalScoreEl
-//   };
-//   highScores.push(newScore)
-//   saveScore()
-//   console.log(timeleft);
-//   console.log(initialsEl);
-//   console.log(highScores)
-// } 
-
-//  function saveScore() {
-//   localStorage.setItem("High Scores", JSON.stringify(highScores))
-//  }
-// //   localStorage.setItem("High Scores", JSON.stringify(highScores))
-// //   console.log(intiialsEl);
-// // }
 //event listeners
 startButton.onclick = startQuiz;
+startButtonAgain.onclick = startQuizAgain;
 choice1.onclick = questionClick;
 choice2.onclick = questionClick;
 choice3.onclick = questionClick;
 choice4.onclick = questionClick;
-// submitScoreButton.onclick = addNewScore()
