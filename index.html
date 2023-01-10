@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kyle's Code Quiz</title>
+
+    <link rel="stylesheet" href="./assets/style.css" />
+  </head>
+  <body>
+    <div class="timer">Time Remaining: <span id="time">0</span></div>
+    <div class="high-scores">High Score: <span id="high-score"></span></div>
+    <div class="wrapper">
+      <div id="startScreen">
+        <h1>Code Quiz</h1>
+        <p>
+          Use the following quiz to test your knowlege of coding. Answer the
+          questions as quickly as you can before the time runs out.
+        </p>
+        <button id="startButton">START Quiz</button>
+      </div>
+      <div id="questions-div" class="hide">
+        <div id="questionTitle"></div>
+        <div id="choices">
+          <button id="choice1"></button>
+          <button id="choice2"></button>
+          <button id="choice3"></button>
+          <button id="choice4"></button>
+        </div>
+        <div id="feedback"></div>
+      </div>
+      <div id="end-screen" class="hide">
+        <h2>Your DONE!</h2>
+        <p>Your final score is <span id="score"></span>!</p>
+        <form id="scores-form">
+          <input id="initials-input" type="text" placeholder="Your initials" />
+          <button id="intials-submit">Submit</button>
+        </form>
+        <ul id="scores"></ul>
+      </div>
+    </div>
+    <script src="./assets/script.js"></script>
+  </body>
+</html>
